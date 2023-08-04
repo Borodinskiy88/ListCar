@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">ListCar</string>
+    <string name="menu">Menu</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="save">Save</string>
+    <string name="brand">Brand</string>
+    <string name="model">Model</string>
+    <string name="specifications">Specifications</string>
+    <string name="price">Price</string>
+    <string name="ruble">₽</string>
+    <string name="fab">FAB</string>
+</resources>
