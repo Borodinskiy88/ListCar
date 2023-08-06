@@ -27,6 +27,9 @@ class CarViewModel (private val carDao: CarDao) : ViewModel() {
     fun fullCars(): Flow<List<Car>> = carDao.getCars()
 
     //TODO
+    fun priceCar(): Flow<List<Car>> = carDao.getCarByPriceDescending()
+
+    //TODO
     private fun getCars() {
         viewModelScope.launch {
             carDao.getCars()

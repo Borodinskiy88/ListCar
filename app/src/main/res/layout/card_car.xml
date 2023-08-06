@@ -30,7 +30,7 @@
             android:layout_width="@dimen/icon_button_min_size_48"
             android:layout_height="@dimen/icon_button_min_size_48"
             android:layout_marginTop="@dimen/padding_start_8"
-            android:src="@drawable/bmw_48"
+            android:src="@drawable/ic_bmw_48"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
