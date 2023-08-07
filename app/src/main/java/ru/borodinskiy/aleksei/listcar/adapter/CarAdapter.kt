@@ -2,57 +2,87 @@ package ru.borodinskiy.aleksei.listcar.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.borodinskiy.aleksei.listcar.R
 import ru.borodinskiy.aleksei.listcar.databinding.CardCarBinding
 import ru.borodinskiy.aleksei.listcar.entity.Car
+import ru.borodinskiy.aleksei.listcar.utils.ReformatValues.reformatCount
 
-class CarAdapter() :
+interface OnInteractionListener {
+    fun onUpdate(car: Car)
+    fun onDelete(car: Car)
+}
+
+class CarAdapter(
+    private val onInteractionListener: OnInteractionListener
+) :
     ListAdapter<Car, CarAdapter.CarViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarViewHolder {
 
         return CarViewHolder(
-            CardCarBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+            CardCarBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            onInteractionListener
         )
     }
-
 
     override fun onBindViewHolder(holder: CarViewHolder, position: Int) {
         getItem(position)?.let { holder.bind(it) }
     }
 
     class CarViewHolder(
-        private val binding: CardCarBinding
+        private val binding: CardCarBinding,
+        private val onInteractionListener: OnInteractionListener
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(car: Car) {
 
-            when (car.brand) {
-                "BMW" -> {
-                    binding.logo.setImageResource(R.drawable.ic_bmw_48)
+            binding.apply {
+                when (car.brand) {
+                    "BMW" -> {
+                        logo.setImageResource(R.drawable.ic_bmw_48)
+                    }
+
+                    "Audi" -> {
+                        logo.setImageResource(R.drawable.ic_audi_48)
+                    }
+
+                    "KIA" -> {
+                        logo.setImageResource(R.drawable.ic_kia_48)
+                    }
+
+                    else -> logo.setImageResource(R.drawable.ic_wheel_blue_48)
                 }
 
-                "Audi " -> {
-                    binding.logo.setImageResource(R.drawable.ic_audi_48)
-                }
+                brand.text = car.brand
+                model.text = car.model
+                specifications.text = car.specifications
+                price.text = reformatCount(car.price)
 
-                "KIA" -> {
-                    binding.logo.setImageResource(R.drawable.ic_kia_48)
-                }
 
-                else -> binding.logo.setImageResource(R.drawable.ic_wheel_48)
+                menu.setOnClickListener {
+                    PopupMenu(it.context, it).apply {
+                        inflate(R.menu.menu_options)
+                        setOnMenuItemClickListener { item ->
+                            when (item.itemId) {
+                                R.id.remove -> {
+                                    onInteractionListener.onDelete(car)
+                                    true
+                                }
+
+                                R.id.edit -> {
+                                    onInteractionListener.onUpdate(car)
+                                    true
+                                }
+
+                                else -> false
+                            }
+                        }
+                    }.show()
+                }
             }
-
-            binding.brand.text = car.brand
-            binding.model.text = car.model
-            binding.specifications.text = car.specifications
-            binding.price.text = car.price.toString()
         }
     }
 

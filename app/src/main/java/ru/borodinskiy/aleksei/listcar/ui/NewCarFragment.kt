@@ -16,6 +16,13 @@ import ru.borodinskiy.aleksei.listcar.viewmodel.CarViewModelFactory
 
 class NewCarFragment : Fragment() {
 
+    companion object {
+        const val MODEL = "model"
+        const val BRAND = "brand"
+        const val SPECIFICATIONS = "specifications"
+        const val PRICE = "price"
+    }
+
     //TODO
 //    private val viewModel: CarViewModel by activityViewModels ()
 
@@ -37,6 +44,14 @@ class NewCarFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNewCarBinding.inflate(inflater, container, false)
+
+
+        binding.apply {
+            brandText.setText(arguments?.getString(BRAND))
+            modelText.setText(arguments?.getString(MODEL))
+            specificationsText.setText(arguments?.getString(SPECIFICATIONS))
+            priceText.setText(arguments?.getString(PRICE))
+        }
 
         return binding.root
     }

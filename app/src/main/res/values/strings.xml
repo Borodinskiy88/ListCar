@@ -9,4 +9,9 @@
     <string name="price">Price</string>
     <string name="ruble">₽</string>
     <string name="fab">FAB</string>
+    <string name="edit">Edit</string>
+    <string name="remove">Remove</string>
+    <string name="search">Search</string>
+    <string name="sort_by_price_decrease">Sort by price decrease ↓</string>
+    <string name="sort_by_price_increase">Sort by price increase ↑</string>
 </resources>

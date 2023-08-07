@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?attr/colorOnPrimary"
-                android:inputType="numberDecimal"
+                android:inputType="textAutoComplete|textCapWords"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,8 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?attr/colorOnPrimary"
-                android:inputType="number"
-                android:singleLine="true" />
+                android:inputType="textAutoComplete|textCapWords" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -78,7 +77,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/specifications_label"
-            app:prefixText="@string/ruble"
             app:startIconDrawable="@drawable/ruble">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -90,12 +88,13 @@
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/save"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="@string/save"
+            android:background="?attr/colorSecondary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/price_label" />

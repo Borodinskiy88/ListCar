@@ -1,14 +1,53 @@
 package ru.borodinskiy.aleksei.listcar.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import ru.borodinskiy.aleksei.listcar.dao.CarDao
 import ru.borodinskiy.aleksei.listcar.entity.Car
 
-class CarViewModel (private val carDao: CarDao) : ViewModel() {
+//TODO
+private val empty = Car(
+    id = 0,
+    model = "",
+    brand = "",
+    specifications = "",
+    price = 0
+)
+
+class CarViewModel(private val carDao: CarDao) : ViewModel() {
+    //TODO
+    private val _edited = MutableLiveData(empty)
+    val edited: LiveData<Car>
+        get() = _edited
+
+
+    //TODO
+    val allCars: LiveData<List<Car>> = carDao.getCars().asLiveData()
+
+    //TODO конкретная машина в новом окне
+    fun getCarById(id: Int): LiveData<Car> = carDao.getCarById(id).asLiveData()
+
+    //TODO машины бренда в новом окне
+    fun getCarByBrand(brand: String): LiveData<List<Car>> = carDao.getCarByBrand(brand).asLiveData()
+
+    //Todo машины марки в новом окне
+    fun getCarByModel(model: String): LiveData<List<Car>> = carDao.getCarByModel(model).asLiveData()
+
+    //TODO по уменьшению цены
+    fun priceCarDecrease(): LiveData<List<Car>> = carDao.getCarByPriceDescending().asLiveData()
+
+    val priceCarDecrease: LiveData<List<Car>> = carDao.getCarByPriceDescending().asLiveData()
+
+    //TODO по увеличению цены
+    fun priceCarIncrease(): LiveData<List<Car>> = carDao.getCarByPriceAscending().asLiveData()
+
+    val priceCarIncrease: LiveData<List<Car>> = carDao.getCarByPriceAscending().asLiveData()
+
 
     private fun insertCar(car: Car) {
         viewModelScope.launch {
@@ -17,17 +56,26 @@ class CarViewModel (private val carDao: CarDao) : ViewModel() {
     }
 
     //TODO
+    fun edit(car: Car) {
+        viewModelScope.launch {
+            carDao.update(car)
+        }
+    }
+
+    fun delete(car: Car) {
+        viewModelScope.launch {
+            carDao.delete(car)
+        }
+    }
+
+
+    //TODO
     fun isEntryValid(brand: String, model: String, specifications: String): Boolean {
         if (brand.isBlank() || model.isBlank() || specifications.isBlank()) {
             return false
         }
         return true
     }
-
-    fun fullCars(): Flow<List<Car>> = carDao.getCars()
-
-    //TODO
-    fun priceCar(): Flow<List<Car>> = carDao.getCarByPriceDescending()
 
     //TODO
     private fun getCars() {

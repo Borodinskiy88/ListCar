@@ -1,21 +1,20 @@
 package ru.borodinskiy.aleksei.listcar.entity
 
-import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "car")
+@Entity(tableName = "list_car")
 data class Car(
 //    @PrimaryKey(autoGenerate = true)
 //    val id: Int,
     @PrimaryKey val id: Int = 0,
     @ColumnInfo(name = "model")
-    @NonNull val model: String,
+    val model: String,
     @ColumnInfo(name = "brand")
-    @NonNull val brand: String,
+    val brand: String,
     @ColumnInfo(name = "specifications")
-    @NonNull val specifications: String,
+    val specifications: String,
     @ColumnInfo(name = "price")
-    @NonNull val price: Int
+    val price: Int
 )

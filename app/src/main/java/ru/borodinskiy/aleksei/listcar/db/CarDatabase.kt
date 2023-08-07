@@ -21,9 +21,9 @@ abstract class CarDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context,
                     CarDatabase::class.java,
-                    "car"
+                    "list_car"
                 )
-                    .createFromAsset("database/car.db")
+                    .createFromAsset("database/list_car.db")
                     .build()
                 INSTANCE = instance
 
