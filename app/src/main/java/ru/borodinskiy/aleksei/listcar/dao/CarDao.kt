@@ -6,17 +6,23 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import androidx.room.Upsert
 import kotlinx.coroutines.flow.Flow
 import ru.borodinskiy.aleksei.listcar.entity.Car
 
 @Dao
 interface CarDao {
-    //Todo
-    @Query("SELECT * FROM list_car ORDER BY id ASC")
+    @Query("SELECT * FROM car_database ORDER BY id DESC")
     fun getCars(): Flow<List<Car>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Query("SELECT * from car_database WHERE id = :id")
+    fun getCarById(id: Int): Flow<Car>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(car: Car)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(cars: List<Car>)
 
     @Update
     suspend fun update(car: Car)
@@ -24,25 +30,21 @@ interface CarDao {
     @Delete
     suspend fun delete(car: Car)
 
-    @Query("SELECT * from list_car WHERE id = :id")
-    fun getCarById(id: Int): Flow<Car>
+    @Upsert
+    suspend fun save(car: Car)
 
-    @Query("SELECT * from list_car WHERE brand = :brand")
+    //Сортировка
+
+    @Query("SELECT * from car_database WHERE brand = :brand")
     fun getCarByBrand(brand: String): Flow<List<Car>>
 
-    @Query("SELECT * from list_car WHERE model = :model")
+    @Query("SELECT * from car_database WHERE model = :model")
     fun getCarByModel(model: String): Flow<List<Car>>
 
-    @Query("SELECT * from list_car ORDER BY price DESC")
+    @Query("SELECT * from car_database ORDER BY price DESC")
     fun getCarByPriceDescending(): Flow<List<Car>>
 
-    @Query("SELECT * from list_car ORDER BY price ASC")
+    @Query("SELECT * from car_database ORDER BY price ASC")
     fun getCarByPriceAscending(): Flow<List<Car>>
-
-//    @Query("SELECT * FROM list_car ORDER BY " +
-//            "CASE WHEN :isAsc = 1 THEN price END ASC, " +
-//            "CASE WHEN :isAsc = 2 THEN price END DESC ")
-//    fun getCarByPrice(isAsc : Int?): Flow<List<Car>>
-
 
 }

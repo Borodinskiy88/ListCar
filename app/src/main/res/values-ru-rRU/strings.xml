@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ListCar</string>
+    <string name="menu">Меню</string>
+    <string name="save">Сохранить</string>
+    <string name="brand">Марка</string>
+    <string name="model">Модель</string>
+    <string name="specifications">Характеристики</string>
+    <string name="price">Цена</string>
+    <string name="edit">Редактировать</string>
+    <string name="remove">Удалить</string>
+    <string name="search">Поиск</string>
+    <string name="sort_by_price_decrease">Сортировать по уменьшению цены ↓</string>
+    <string name="sort_by_price_increase">Сортировать по увеличению цены ↑</string>
+    <string name="fill_in_all_fields">Необходимо заполнить все поля</string>
+</resources>

@@ -7,9 +7,8 @@ import androidx.room.RoomDatabase
 import ru.borodinskiy.aleksei.listcar.dao.CarDao
 import ru.borodinskiy.aleksei.listcar.entity.Car
 
-@Database(entities = [Car::class], version = 1, exportSchema = true)
+@Database(entities = [Car::class], version = 1)
 abstract class CarDatabase : RoomDatabase() {
-
     abstract fun carDao(): CarDao
 
     companion object {
@@ -19,11 +18,11 @@ abstract class CarDatabase : RoomDatabase() {
         fun getDatabase(context: Context): CarDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
-                    context,
+                    context.applicationContext,
                     CarDatabase::class.java,
-                    "list_car"
+                    "car_database"
                 )
-                    .createFromAsset("database/list_car.db")
+                    .createFromAsset("database/car_database.db")
                     .build()
                 INSTANCE = instance
 

@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.borodinskiy.aleksei.listcar.dao.CarDao
 import ru.borodinskiy.aleksei.listcar.entity.Car
+import ru.borodinskiy.aleksei.listcar.utils.SingleLiveEvent
 
 //TODO
 private val empty = Car(
@@ -20,10 +21,17 @@ private val empty = Car(
 )
 
 class CarViewModel(private val carDao: CarDao) : ViewModel() {
-    //TODO
-    private val _edited = MutableLiveData(empty)
-    val edited: LiveData<Car>
-        get() = _edited
+
+    // TODO
+//    private val _edited = MutableLiveData(empty)
+//    val edited: LiveData<Car>
+//        get() = _edited
+
+    private val edited = MutableLiveData(empty)
+
+    private val _created = SingleLiveEvent<Unit>()
+    val created: LiveData<Unit>
+        get() = _created
 
 
     //TODO
@@ -49,16 +57,26 @@ class CarViewModel(private val carDao: CarDao) : ViewModel() {
     val priceCarIncrease: LiveData<List<Car>> = carDao.getCarByPriceAscending().asLiveData()
 
 
-    private fun insertCar(car: Car) {
-        viewModelScope.launch {
-            carDao.insert(car)
-        }
-    }
+//    suspend fun insert(car: Car) {
+//        viewModelScope.launch {
+//            carDao.insert(car)
+//        }
+//    }
 
     //TODO
-    fun edit(car: Car) {
+//    fun update(car: Car) {
+//        viewModelScope.launch {
+//            carDao.update(car)
+//        }
+//    }
+
+    fun update(car: Car) {
+        edited.value = car
+    }
+
+    fun loadCars() {
         viewModelScope.launch {
-            carDao.update(car)
+            carDao.getCars()
         }
     }
 
@@ -68,42 +86,21 @@ class CarViewModel(private val carDao: CarDao) : ViewModel() {
         }
     }
 
-
-    //TODO
-    fun isEntryValid(brand: String, model: String, specifications: String): Boolean {
-        if (brand.isBlank() || model.isBlank() || specifications.isBlank()) {
-            return false
-        }
-        return true
-    }
-
-    //TODO
-    private fun getCars() {
-        viewModelScope.launch {
-            carDao.getCars()
+    fun insert() {
+        edited.value?.let {
+            viewModelScope.launch {
+                //                              carDao.save(it)
+                carDao.insert(it)
+            }
         }
     }
 
-    private fun getNewCarEntry(
-        id: Int,
-        brand: String,
-        model: String,
-        specifications: String,
-        price: Int
-    ): Car {
-        return Car(
-            id = id,
-            brand = brand,
-            model = model,
-            specifications = specifications,
-            price = price
+    fun changeCar(brand: String, model: String, specification: String, price: String) {
+        edited.value = edited.value?.copy(
+            brand = brand, model = model, specifications = specification, price = price.toInt()
         )
     }
 
-    fun addNewCar(id: Int, brand: String, model: String, specifications: String, price: Int) {
-        val newCar = getNewCarEntry(id, brand, model, specifications, price)
-        insertCar(newCar)
-    }
 
 }
 

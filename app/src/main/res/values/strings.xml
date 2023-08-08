@@ -1,17 +1,18 @@
 <resources>
     <string name="app_name">ListCar</string>
     <string name="menu">Menu</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="save">Save</string>
     <string name="brand">Brand</string>
     <string name="model">Model</string>
     <string name="specifications">Specifications</string>
     <string name="price">Price</string>
-    <string name="ruble">₽</string>
-    <string name="fab">FAB</string>
+    <string name="ruble" translatable="false">₽</string>
+    <string name="fab" translatable="false">FAB</string>
     <string name="edit">Edit</string>
     <string name="remove">Remove</string>
     <string name="search">Search</string>
     <string name="sort_by_price_decrease">Sort by price decrease ↓</string>
     <string name="sort_by_price_increase">Sort by price increase ↑</string>
+    <string name="fill_in_all_fields">It is necessary to fill in all fields</string>
+
 </resources>

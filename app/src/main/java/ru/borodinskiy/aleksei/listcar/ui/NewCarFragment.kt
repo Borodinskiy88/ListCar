@@ -1,16 +1,17 @@
 package ru.borodinskiy.aleksei.listcar.ui
 
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
+import ru.borodinskiy.aleksei.listcar.R
 import ru.borodinskiy.aleksei.listcar.app.ListCarApplication
 import ru.borodinskiy.aleksei.listcar.databinding.FragmentNewCarBinding
-import ru.borodinskiy.aleksei.listcar.entity.Car
+import ru.borodinskiy.aleksei.listcar.utils.AndroidUtils
 import ru.borodinskiy.aleksei.listcar.viewmodel.CarViewModel
 import ru.borodinskiy.aleksei.listcar.viewmodel.CarViewModelFactory
 
@@ -23,8 +24,8 @@ class NewCarFragment : Fragment() {
         const val PRICE = "price"
     }
 
-    //TODO
-//    private val viewModel: CarViewModel by activityViewModels ()
+    private var _binding: FragmentNewCarBinding? = null
+    private val binding get() = requireNotNull(_binding)
 
     private val viewModel: CarViewModel by activityViewModels {
         CarViewModelFactory(
@@ -33,11 +34,7 @@ class NewCarFragment : Fragment() {
         )
     }
 
-    private var _binding: FragmentNewCarBinding? = null
-    private val binding get() = _binding!!
-
-
-    lateinit var car: Car
+//    lateinit var car: Car
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,42 +50,42 @@ class NewCarFragment : Fragment() {
             priceText.setText(arguments?.getString(PRICE))
         }
 
+        binding.save.setOnClickListener {
+            if (binding.brandText.text.toString().isBlank() ||
+                binding.modelText.text.toString().isBlank() ||
+                binding.specificationsText.text.toString().isBlank() ||
+                binding.priceText.text.toString().isBlank()
+            ) {
+                Snackbar.make(
+                    binding.root,
+                    R.string.fill_in_all_fields,
+                    Snackbar.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            }
+            viewModel.changeCar(
+                binding.brandText.text.toString(),
+                binding.modelText.text.toString(),
+                binding.specificationsText.text.toString(),
+                binding.priceText.text.toString()
+            )
+            viewModel.insert()
+            AndroidUtils.hideKeyboard(requireView())
+            findNavController().navigate(R.id.action_newCarFragment_to_carFragment)
+            viewLifecycleOwner
+
+        }
+
+        viewModel.created.observe(viewLifecycleOwner) {
+//            viewModel.loadCars()
+            findNavController().navigateUp()
+        }
+
         return binding.root
     }
 
-    private fun isEntryValid(): Boolean {
-        return viewModel.isEntryValid(
-            binding.brandText.text.toString(),
-            binding.modelText.text.toString(),
-            binding.specificationsText.text.toString(),
-        )
-    }
-
-//    private fun addNewCar() {
-//        if (isEntryValid()) {
-//            viewModel.addNewCar(
-//                binding.brandText.text.toString(),
-//                binding.modelText.text.toString(),
-//                binding.specificationsText.text.toString(),
-//                binding.priceText.text.toString().toInt()
-//            )
-//            findNavController().navigate(R.id.carFragment)
-//        }
-//    }
-
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        binding.save.setOnClickListener {
-//            addNewCar()
-//        }
-//    }
-
     override fun onDestroyView() {
         super.onDestroyView()
-        // Hide keyboard.
-        val inputMethodManager = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as
-                InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
         _binding = null
     }
 

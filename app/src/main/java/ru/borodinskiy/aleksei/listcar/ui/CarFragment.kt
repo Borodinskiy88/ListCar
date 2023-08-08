@@ -25,13 +25,14 @@ class CarFragment : Fragment() {
 
     lateinit var car: Car
 
-//    private val viewModel: CarViewModel by activityViewModels()
-
     private val viewModel: CarViewModel by activityViewModels {
         CarViewModelFactory(
             (activity?.application as ListCarApplication).database.carDao()
         )
     }
+
+    private var _binding: FragmentCarBinding? = null
+    private val binding get() = requireNotNull(_binding)
 
     private lateinit var recyclerView: RecyclerView
 
@@ -39,13 +40,14 @@ class CarFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentCarBinding.inflate(inflater, container, false)
+        _binding = FragmentCarBinding.inflate(inflater, container, false)
 
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val adapter = CarAdapter(object : OnInteractionListener {
+
             override fun onUpdate(car: Car) {
-                viewModel.edit(car)
+                viewModel.update(car)
                 val bundle = bundleOf(
                     Pair("model", car.model),
                     Pair("brand", car.brand),
@@ -62,8 +64,8 @@ class CarFragment : Fragment() {
         })
         recyclerView.adapter = adapter
 
-        viewModel.allCars.observe(this.viewLifecycleOwner) { items ->
-            items.let {
+        viewModel.allCars.observe(this.viewLifecycleOwner) { cars ->
+            cars.let {
                 adapter.submitList(it)
             }
         }
@@ -71,13 +73,6 @@ class CarFragment : Fragment() {
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_carFragment_to_newCarFragment)
         }
-
-//        lifecycle.coroutineScope.launch {
-//            viewModel.fullCars().collect() {
-//                adapter.submitList(it)
-//            }
-//        }
-
 
         binding.menuSorted.setOnClickListener { it ->
             PopupMenu(it.context, it).apply {
@@ -108,8 +103,12 @@ class CarFragment : Fragment() {
             }.show()
         }
 
-
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
