@@ -4,26 +4,33 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import ru.borodinskiy.aleksei.listcar.dao.CarDao
 import ru.borodinskiy.aleksei.listcar.entity.Car
+import javax.inject.Inject
 
-class CarRepository(private val carDao: CarDao) {
+class CarRepository @Inject constructor(private val carDao: CarDao) : Repository {
 
-    val allCars: LiveData<List<Car>> = carDao.getCars().asLiveData()
+    override val allCars: LiveData<List<Car>> = carDao.getCars().asLiveData()
 
-    fun getCarById(id: Int): LiveData<Car> = carDao.getCarById(id).asLiveData()
+    override fun getCars(): LiveData<List<Car>> = carDao.getCars().asLiveData()
 
-    fun getCarByBrand(brand: String): LiveData<List<Car>> = carDao.getCarByBrand(brand).asLiveData()
+    override fun getCarById(id: Int): LiveData<Car> = carDao.getCarById(id).asLiveData()
 
-    fun getCarByModel(model: String): LiveData<List<Car>> = carDao.getCarByModel(model).asLiveData()
+    override fun getCarByBrand(brand: String): LiveData<List<Car>> =
+        carDao.getCarByBrand(brand).asLiveData()
 
-    fun priceCarDecrease(): LiveData<List<Car>> = carDao.getCarByPriceDescending().asLiveData()
+    override fun getCarByModel(model: String): LiveData<List<Car>> =
+        carDao.getCarByModel(model).asLiveData()
 
-    fun priceCarIncrease(): LiveData<List<Car>> = carDao.getCarByPriceAscending().asLiveData()
+    override fun priceCarDecrease(): LiveData<List<Car>> =
+        carDao.getCarByPriceDescending().asLiveData()
 
-    suspend fun update(car: Car) = carDao.update(car)
+    override fun priceCarIncrease(): LiveData<List<Car>> =
+        carDao.getCarByPriceAscending().asLiveData()
 
-    suspend fun insert(car: Car) = carDao.insert(car)
+    override suspend fun update(car: Car) = carDao.update(car)
 
-    suspend fun delete(car: Car) = carDao.delete(car)
+    override suspend fun insert(car: Car) = carDao.insert(car)
 
-    suspend fun save(car: Car) = carDao.save(car)
+    override suspend fun delete(car: Car) = carDao.delete(car)
+
+    override suspend fun save(car: Car) = carDao.save(car)
 }

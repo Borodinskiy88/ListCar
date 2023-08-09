@@ -1,10 +1,9 @@
 package ru.borodinskiy.aleksei.listcar.app
 
 import android.app.Application
-import ru.borodinskiy.aleksei.listcar.db.CarDatabase
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class ListCarApplication : Application() {
-
-    val database: CarDatabase by lazy { CarDatabase.getDatabase(this) }
 
 }

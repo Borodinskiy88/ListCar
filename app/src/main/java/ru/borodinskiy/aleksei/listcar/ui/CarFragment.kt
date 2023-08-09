@@ -11,25 +11,20 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import ru.borodinskiy.aleksei.listcar.R
 import ru.borodinskiy.aleksei.listcar.adapter.CarAdapter
 import ru.borodinskiy.aleksei.listcar.adapter.OnInteractionListener
-import ru.borodinskiy.aleksei.listcar.app.ListCarApplication
 import ru.borodinskiy.aleksei.listcar.databinding.FragmentCarBinding
 import ru.borodinskiy.aleksei.listcar.entity.Car
 import ru.borodinskiy.aleksei.listcar.viewmodel.CarViewModel
-import ru.borodinskiy.aleksei.listcar.viewmodel.CarViewModelFactory
 
-
+@AndroidEntryPoint
 class CarFragment : Fragment() {
 
     lateinit var car: Car
 
-    private val viewModel: CarViewModel by activityViewModels {
-        CarViewModelFactory(
-            (activity?.application as ListCarApplication).database.carDao()
-        )
-    }
+    private val viewModel: CarViewModel by activityViewModels()
 
     private var _binding: FragmentCarBinding? = null
     private val binding get() = requireNotNull(_binding)

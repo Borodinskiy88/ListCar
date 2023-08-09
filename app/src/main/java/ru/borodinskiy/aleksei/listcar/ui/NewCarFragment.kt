@@ -8,13 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import ru.borodinskiy.aleksei.listcar.R
-import ru.borodinskiy.aleksei.listcar.app.ListCarApplication
 import ru.borodinskiy.aleksei.listcar.databinding.FragmentNewCarBinding
 import ru.borodinskiy.aleksei.listcar.utils.AndroidUtils
 import ru.borodinskiy.aleksei.listcar.viewmodel.CarViewModel
-import ru.borodinskiy.aleksei.listcar.viewmodel.CarViewModelFactory
 
+@AndroidEntryPoint
 class NewCarFragment : Fragment() {
 
     companion object {
@@ -27,12 +27,13 @@ class NewCarFragment : Fragment() {
     private var _binding: FragmentNewCarBinding? = null
     private val binding get() = requireNotNull(_binding)
 
-    private val viewModel: CarViewModel by activityViewModels {
-        CarViewModelFactory(
-            (activity?.application as ListCarApplication).database
-                .carDao()
-        )
-    }
+    private val viewModel: CarViewModel by activityViewModels()
+//    {
+//        CarViewModelFactory(
+//            (activity?.application as ListCarApplication).database
+//                .carDao()
+//        )
+//    }
 
 //    lateinit var car: Car
 
