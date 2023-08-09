@@ -13,4 +13,8 @@
     <string name="sort_by_price_decrease">Сортировать по уменьшению цены ↓</string>
     <string name="sort_by_price_increase">Сортировать по увеличению цены ↑</string>
     <string name="fill_in_all_fields">Необходимо заполнить все поля</string>
+    <string name="decrease">По убыванию ↓</string>
+    <string name="increase">По возрастанию ↑</string>
+    <string name="show_brand">Показать все машины данной марки</string>
+    <string name="show_model">Показать все машины данной модели</string>
 </resources>

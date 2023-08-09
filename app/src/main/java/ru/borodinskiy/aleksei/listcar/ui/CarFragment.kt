@@ -56,7 +56,28 @@ class CarFragment : Fragment() {
                 viewModel.delete(car)
             }
 
+            override fun filterByBrand(car: Car) {
+                val bundle = bundleOf(
+                    Pair("brand", car.brand),
+                )
+                findNavController().navigate(R.id.filterCarFragment, bundle)
+            }
+
+            override fun filterByModel(car: Car) {
+                val bundle = bundleOf(
+                    Pair("model", car.model),
+                )
+                findNavController().navigate(R.id.filterCarFragment, bundle)
+            }
+
+            override fun filterByPrice() {
+                findNavController().navigate(R.id.filterCarFragment)
+            }
+
         })
+
+
+
         recyclerView.adapter = adapter
 
         viewModel.allCars.observe(this.viewLifecycleOwner) { cars ->
@@ -64,6 +85,12 @@ class CarFragment : Fragment() {
                 adapter.submitList(it)
             }
         }
+
+//        viewModel.loadCars().observe(viewLifecycleOwner) {cars ->
+//            cars.let {
+//                adapter.submitList(it)
+//            }
+//        }
 
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_carFragment_to_newCarFragment)
@@ -75,20 +102,23 @@ class CarFragment : Fragment() {
                 setOnMenuItemClickListener { item ->
                     when (item.itemId) {
                         R.id.decrease -> {
-                            viewModel.priceCarDecrease.observe(viewLifecycleOwner) { items ->
-                                items.let {
-                                    adapter.submitList(it)
-                                }
-                            }
+                            val bundle = bundleOf(
+                                Pair("decrease", "decrease"),
+                            )
+                            findNavController().navigate(R.id.filterCarFragment, bundle)
                             true
                         }
 
                         R.id.increase -> {
-                            viewModel.priceCarIncrease.observe(viewLifecycleOwner) { items ->
-                                items.let {
-                                    adapter.submitList(it)
-                                }
-                            }
+                            val bundle = bundleOf(
+                                Pair("increase", "increase"),
+                            )
+                            findNavController().navigate(R.id.filterCarFragment, bundle)
+//                            viewModel.priceCarIncrease.observe(viewLifecycleOwner) { items ->
+//                                items.let {
+//                                    adapter.submitList(it)
+//                                }
+//                            }
                             true
                         }
 
@@ -98,8 +128,10 @@ class CarFragment : Fragment() {
             }.show()
         }
 
+
         return binding.root
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

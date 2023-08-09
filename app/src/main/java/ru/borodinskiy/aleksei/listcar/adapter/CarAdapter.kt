@@ -6,6 +6,7 @@ import android.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import ru.borodinskiy.aleksei.listcar.R
 import ru.borodinskiy.aleksei.listcar.databinding.CardCarBinding
 import ru.borodinskiy.aleksei.listcar.entity.Car
@@ -14,6 +15,9 @@ import ru.borodinskiy.aleksei.listcar.utils.ReformatValues.reformatCount
 interface OnInteractionListener {
     fun onUpdate(car: Car)
     fun onDelete(car: Car)
+    fun filterByBrand(car: Car)
+    fun filterByModel(car: Car)
+    fun filterByPrice()
 }
 
 class CarAdapter(
@@ -60,6 +64,22 @@ class CarAdapter(
                 model.text = car.model
                 specifications.text = car.specifications
                 price.text = reformatCount(car.price)
+
+                brand.setOnClickListener {
+                    Snackbar.make(binding.root, R.string.show_brand, Snackbar.LENGTH_SHORT).show()
+                    onInteractionListener.filterByBrand(car)
+                }
+
+                model.setOnClickListener {
+                    Snackbar.make(binding.root, R.string.show_model, Snackbar.LENGTH_SHORT).show()
+                    onInteractionListener.filterByModel(car)
+                }
+
+                //TODO Оставить только в верхнем меню
+                price.setOnClickListener {
+                    Snackbar.make(binding.root, "My Message", Snackbar.LENGTH_SHORT).show()
+                    onInteractionListener.filterByPrice()
+                }
 
 
                 menu.setOnClickListener {

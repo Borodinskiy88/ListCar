@@ -14,5 +14,10 @@
     <string name="sort_by_price_decrease">Sort by price decrease ↓</string>
     <string name="sort_by_price_increase">Sort by price increase ↑</string>
     <string name="fill_in_all_fields">It is necessary to fill in all fields</string>
+    <string name="decrease">Decrease ↓</string>
+    <string name="increase">Increase ↑</string>
+    <string name="show_brand">Show all cars of this brand</string>
+    <string name="show_model">Show all cars of this model</string>
+
 
 </resources>

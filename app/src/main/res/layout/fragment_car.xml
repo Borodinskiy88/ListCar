@@ -7,6 +7,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/top_bar"
+        android:visibility="visible"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:background="?attr/colorSecondary"
@@ -38,8 +39,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/common_spacing_16"
             android:contentDescription="@string/menu"
-            app:icon="@drawable/ic_sort_24"
-            app:iconTint="@color/black"
+            app:icon="@drawable/ic_sorted_24"
+            android:text="@string/price"
+            android:textColor="?attr/colorPrimaryDark"
+            app:iconPadding="@dimen/padding_start_8"
+            app:iconTint="?attr/colorPrimaryDark"
             android:layout_marginEnd="@dimen/fab_margin_24"
             app:iconGravity="end"
             app:layout_constraintEnd_toEndOf="parent"
@@ -69,6 +73,6 @@
         android:src="@drawable/ic_add_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@android:color/black" />
+        app:tint="?attr/colorPrimaryDark" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

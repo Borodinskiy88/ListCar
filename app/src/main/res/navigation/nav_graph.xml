@@ -7,17 +7,28 @@
     <fragment
         android:id="@+id/carFragment"
         android:name="ru.borodinskiy.aleksei.listcar.ui.CarFragment"
-        android:label="CarFragment" >
+        android:label="CarFragment">
         <action
             android:id="@+id/action_carFragment_to_newCarFragment"
             app:destination="@id/newCarFragment" />
+        <action
+            android:id="@+id/action_carFragment_to_filterCarFragment"
+            app:destination="@id/filterCarFragment" />
     </fragment>
     <fragment
         android:id="@+id/newCarFragment"
         android:name="ru.borodinskiy.aleksei.listcar.ui.NewCarFragment"
-        android:label="NewCarFragment" >
+        android:label="NewCarFragment">
         <action
             android:id="@+id/action_newCarFragment_to_carFragment"
+            app:destination="@id/carFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterCarFragment"
+        android:name="ru.borodinskiy.aleksei.listcar.ui.FilterCarFragment"
+        android:label="FilterCarFragment">
+        <action
+            android:id="@+id/action_filterCarFragment_to_carFragment"
             app:destination="@id/carFragment" />
     </fragment>
 </navigation>

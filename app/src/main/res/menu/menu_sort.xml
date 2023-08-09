@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/decrease"
-        android:title="@string/sort_by_price_decrease" />
+        android:title="@string/decrease" />
     <item
         android:id="@+id/increase"
-        android:title="@string/sort_by_price_increase" />
+        android:title="@string/increase" />
 </menu>

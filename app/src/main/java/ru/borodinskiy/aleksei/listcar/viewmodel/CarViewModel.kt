@@ -10,7 +10,6 @@ import ru.borodinskiy.aleksei.listcar.entity.Car
 import ru.borodinskiy.aleksei.listcar.repository.CarRepositoryImpl
 import javax.inject.Inject
 
-//TODO
 private val empty = Car(
     id = 0,
     model = "",
@@ -57,11 +56,8 @@ class CarViewModel @Inject constructor(
         edited.value = car
     }
 
-    fun loadCars() {
-        viewModelScope.launch {
-            repository.getCars()
-        }
-    }
+    fun loadCars(): LiveData<List<Car>> = repository.getCars()
+
 
     fun delete(car: Car) {
         viewModelScope.launch {
@@ -70,12 +66,9 @@ class CarViewModel @Inject constructor(
     }
 
     private fun insert(car: Car) {
-        //       edited.value?.let {
         viewModelScope.launch {
-            //                              carDao.save(it)
             repository.insert(car)
         }
-        //      }
     }
 
     fun save() {

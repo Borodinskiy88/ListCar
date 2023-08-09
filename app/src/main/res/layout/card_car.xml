@@ -9,6 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/colorOnPrimary"
         android:paddingStart="@dimen/padding_start_8"
         android:paddingEnd="@dimen/padding_start_8"
         android:paddingBottom="@dimen/padding_start_8">
@@ -39,13 +40,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_spacing_16"
+            android:drawablePadding="@dimen/common_spacing_16"
             android:text="BMW"
-            android:textColor="@color/gray"
+            android:textColor="?attr/colorPrimaryVariant"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/model"
             app:layout_constraintStart_toEndOf="@id/logo"
-            app:layout_constraintTop_toTopOf="@id/logo" />
+            app:layout_constraintTop_toTopOf="@id/logo"
+            app:drawableEndCompat="@drawable/ic_forward_24"
+            app:drawableTint="?attr/colorPrimary" />
+
 
         <TextView
             android:id="@+id/model"
@@ -53,10 +58,13 @@
             android:layout_height="wrap_content"
             android:text="BMW X5"
             android:textSize="16sp"
-            android:textColor="@color/gray"
+            android:drawablePadding="@dimen/common_spacing_16"
+            android:textColor="?attr/colorPrimaryVariant"
             app:layout_constraintBottom_toBottomOf="@id/logo"
             app:layout_constraintStart_toStartOf="@id/brand"
-            app:layout_constraintTop_toBottomOf="@id/brand" />
+            app:layout_constraintTop_toBottomOf="@id/brand"
+            app:drawableEndCompat="@drawable/ic_forward_18"
+            app:drawableTint="?attr/colorPrimary" />
 
         <TextView
             android:id="@+id/specifications"
@@ -65,7 +73,7 @@
             android:layout_marginTop="@dimen/padding_start_8"
             android:text="1,6  - 102 л.с. – разгон 12,9 с"
             android:textSize="16sp"
-            android:textColor="@color/gray"
+            android:textColor="?attr/colorPrimaryVariant"
             app:layout_constraintStart_toStartOf="@id/logo"
             app:layout_constraintTop_toBottomOf="@id/model" />
 
@@ -76,12 +84,12 @@
             android:layout_marginTop="8dp"
             android:text="1900000"
             android:textSize="16sp"
-            android:drawablePadding="@dimen/padding_start_8"
-            android:textColor="@color/gray"
-            app:drawableEndCompat="@drawable/ruble"
+            android:drawablePadding="8dp"
+            app:drawableStartCompat="@drawable/ruble"
+            android:textColor="?attr/colorPrimaryVariant"
             app:layout_constraintStart_toStartOf="@id/logo"
             app:layout_constraintTop_toBottomOf="@id/specifications"
-            app:drawableTint="@color/gray" />
+            app:drawableTint="?attr/colorPrimaryVariant" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
