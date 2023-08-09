@@ -28,14 +28,6 @@ class NewCarFragment : Fragment() {
     private val binding get() = requireNotNull(_binding)
 
     private val viewModel: CarViewModel by activityViewModels()
-//    {
-//        CarViewModelFactory(
-//            (activity?.application as ListCarApplication).database
-//                .carDao()
-//        )
-//    }
-
-//    lateinit var car: Car
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,17 +62,16 @@ class NewCarFragment : Fragment() {
                 binding.specificationsText.text.toString(),
                 binding.priceText.text.toString()
             )
-            viewModel.insert()
+            viewModel.save()
             AndroidUtils.hideKeyboard(requireView())
             findNavController().navigate(R.id.action_newCarFragment_to_carFragment)
             viewLifecycleOwner
-
         }
 
-        viewModel.created.observe(viewLifecycleOwner) {
-//            viewModel.loadCars()
-            findNavController().navigateUp()
-        }
+//        viewModel.created.observe(viewLifecycleOwner) {
+//            viewModel.clear()
+//            findNavController().navigateUp()
+//        }
 
         return binding.root
     }

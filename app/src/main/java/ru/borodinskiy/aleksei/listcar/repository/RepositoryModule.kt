@@ -13,5 +13,5 @@ interface RepositoryModule {
 
     @Singleton
     @Binds
-    fun carRepository(carRepository: CarRepository): Repository
+    fun carRepository(carRepositoryImpl: CarRepositoryImpl): CarRepository
 }

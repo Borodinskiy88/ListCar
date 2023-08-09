@@ -39,10 +39,10 @@ class CarsViewModel(private val carDao: CarDao) : ViewModel() {
     /**
      * Вставляет новый элемент в базу данных.
      */
-    fun addNewCar(brand: String, model: String, specifications: String, price: String) {
-        val newCar = getNewCarEntry(brand, model, specifications, price)
-        insertCar(newCar)
-    }
+//    fun addNewCar(brand: String, model: String, specifications: String, price: String) {
+//        val newCar = getNewCarEntry(brand, model, specifications, price)
+//        insertCar(newCar)
+//    }
 
     /**
      * Запуск новой сопрограммы для неблокирующей вставки элемента
@@ -83,19 +83,19 @@ class CarsViewModel(private val carDao: CarDao) : ViewModel() {
      * Возвращает экземпляр класса сущностей [Item] с информацией об элементе, введенной пользователем.
      * Это будет использоваться для добавления новой записи в базу данных Inventory.
      */
-    private fun getNewCarEntry(
-        brand: String,
-        model: String,
-        specifications: String,
-        price: String
-    ): Car {
-        return Car(
-            brand = brand,
-            model = model,
-            specifications = specifications,
-            price = price.toInt()
-        )
-    }
+//    private fun getNewCarEntry(
+//        brand: String,
+//        model: String,
+//        specifications: String,
+//        price: String
+//    ): Car {
+//        return Car(
+//            brand = brand,
+//            model = model,
+//            specifications = specifications,
+//            price = price.toInt()
+//        )
+//    }
 
     /**
      * Вызывается для обновления существующей записи в базе данных Inventory.

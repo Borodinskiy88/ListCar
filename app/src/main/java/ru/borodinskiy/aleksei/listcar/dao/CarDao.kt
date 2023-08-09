@@ -21,9 +21,6 @@ interface CarDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(car: Car)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(cars: List<Car>)
-
     @Update
     suspend fun update(car: Car)
 

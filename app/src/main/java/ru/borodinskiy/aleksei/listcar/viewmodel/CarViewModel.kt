@@ -7,8 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.borodinskiy.aleksei.listcar.entity.Car
-import ru.borodinskiy.aleksei.listcar.repository.CarRepository
-import ru.borodinskiy.aleksei.listcar.utils.SingleLiveEvent
+import ru.borodinskiy.aleksei.listcar.repository.CarRepositoryImpl
 import javax.inject.Inject
 
 //TODO
@@ -22,14 +21,14 @@ private val empty = Car(
 
 @HiltViewModel
 class CarViewModel @Inject constructor(
-    private val repository: CarRepository,
+    private val repository: CarRepositoryImpl,
 ) : ViewModel() {
 
     private val edited = MutableLiveData(empty)
 
-    private val _created = SingleLiveEvent<Unit>()
-    val created: LiveData<Unit>
-        get() = _created
+//    private val _created = SingleLiveEvent<Unit>()
+//    private val created = MutableLiveData<Unit>
+//        get() = _created
 
 
     //TODO
@@ -70,13 +69,22 @@ class CarViewModel @Inject constructor(
         }
     }
 
-    fun insert() {
-        edited.value?.let {
-            viewModelScope.launch {
-                //                              carDao.save(it)
-                repository.insert(it)
-            }
+    private fun insert(car: Car) {
+        //       edited.value?.let {
+        viewModelScope.launch {
+            //                              carDao.save(it)
+            repository.insert(car)
         }
+        //      }
+    }
+
+    fun save() {
+        edited.value?.let { insert(it) }
+        clear()
+    }
+
+    private fun clear() {
+        edited.value = empty
     }
 
     fun changeCar(brand: String, model: String, specification: String, price: String) {
