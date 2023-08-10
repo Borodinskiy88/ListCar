@@ -68,11 +68,6 @@ class NewCarFragment : Fragment() {
             viewLifecycleOwner
         }
 
-//        viewModel.created.observe(viewLifecycleOwner) {
-//            viewModel.clear()
-//            findNavController().navigateUp()
-//        }
-
         return binding.root
     }
 

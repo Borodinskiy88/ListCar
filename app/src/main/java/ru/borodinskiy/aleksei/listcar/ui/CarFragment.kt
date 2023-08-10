@@ -2,15 +2,21 @@ package ru.borodinskiy.aleksei.listcar.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import androidx.core.os.bundleOf
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import ru.borodinskiy.aleksei.listcar.R
 import ru.borodinskiy.aleksei.listcar.adapter.CarAdapter
@@ -20,7 +26,7 @@ import ru.borodinskiy.aleksei.listcar.entity.Car
 import ru.borodinskiy.aleksei.listcar.viewmodel.CarViewModel
 
 @AndroidEntryPoint
-class CarFragment : Fragment() {
+class CarFragment : Fragment(), MenuProvider {
 
     lateinit var car: Car
 
@@ -31,15 +37,26 @@ class CarFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
 
+    private lateinit var adapter: CarAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCarBinding.inflate(inflater, container, false)
 
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val adapter = CarAdapter(object : OnInteractionListener {
+        adapter = CarAdapter(object : OnInteractionListener {
 
             override fun onUpdate(car: Car) {
                 viewModel.update(car)
@@ -70,13 +87,7 @@ class CarFragment : Fragment() {
                 findNavController().navigate(R.id.filterCarFragment, bundle)
             }
 
-            override fun filterByPrice() {
-                findNavController().navigate(R.id.filterCarFragment)
-            }
-
         })
-
-
 
         recyclerView.adapter = adapter
 
@@ -86,56 +97,42 @@ class CarFragment : Fragment() {
             }
         }
 
-//        viewModel.loadCars().observe(viewLifecycleOwner) {cars ->
-//            cars.let {
-//                adapter.submitList(it)
-//            }
-//        }
-
         binding.floatingActionButton.setOnClickListener {
             findNavController().navigate(R.id.action_carFragment_to_newCarFragment)
         }
-
-        binding.menuSorted.setOnClickListener { it ->
-            PopupMenu(it.context, it).apply {
-                inflate(R.menu.menu_sort)
-                setOnMenuItemClickListener { item ->
-                    when (item.itemId) {
-                        R.id.decrease -> {
-                            val bundle = bundleOf(
-                                Pair("decrease", "decrease"),
-                            )
-                            findNavController().navigate(R.id.filterCarFragment, bundle)
-                            true
-                        }
-
-                        R.id.increase -> {
-                            val bundle = bundleOf(
-                                Pair("increase", "increase"),
-                            )
-                            findNavController().navigate(R.id.filterCarFragment, bundle)
-//                            viewModel.priceCarIncrease.observe(viewLifecycleOwner) { items ->
-//                                items.let {
-//                                    adapter.submitList(it)
-//                                }
-//                            }
-                            true
-                        }
-
-                        else -> false
-                    }
-                }
-            }.show()
-        }
-
-
-        return binding.root
     }
 
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.main_menu, menu)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return when (menuItem.itemId) {
+
+            R.id.menu_sorted_decrease -> {
+                val bundle = bundleOf(
+                    Pair("decrease", "decrease"),
+                )
+                Snackbar.make(binding.root, R.string.show_decrease, Snackbar.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.filterCarFragment, bundle)
+                true
+            }
+
+            R.id.menu_sorted_increase -> {
+                val bundle = bundleOf(
+                    Pair("increase", "increase"),
+                )
+                Snackbar.make(binding.root, R.string.show_increase, Snackbar.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.filterCarFragment, bundle)
+                true
+            }
+
+            else -> false
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }

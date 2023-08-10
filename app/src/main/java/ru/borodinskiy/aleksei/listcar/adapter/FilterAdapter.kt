@@ -11,7 +11,7 @@ import ru.borodinskiy.aleksei.listcar.databinding.CardCarBinding
 import ru.borodinskiy.aleksei.listcar.entity.Car
 import ru.borodinskiy.aleksei.listcar.utils.ReformatValues
 
-class FilterAdapter() :
+class FilterAdapter :
     ListAdapter<Car, FilterAdapter.FilterViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterViewHolder {

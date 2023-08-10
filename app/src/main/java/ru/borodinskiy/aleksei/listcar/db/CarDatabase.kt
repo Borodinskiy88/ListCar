@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import ru.borodinskiy.aleksei.listcar.dao.CarDao
 import ru.borodinskiy.aleksei.listcar.entity.Car
 
-@Database(entities = [Car::class], version = 1)
+@Database(entities = [Car::class], version = 1, exportSchema = false)
 abstract class CarDatabase : RoomDatabase() {
     abstract fun carDao(): CarDao
 

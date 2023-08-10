@@ -19,6 +19,8 @@ interface CarRepository {
 
     fun priceCarIncrease(): LiveData<List<Car>>
 
+    fun searchDatabase(searchQuery: String): LiveData<List<Car>>
+
     suspend fun update(car: Car)
 
     suspend fun insert(car: Car)

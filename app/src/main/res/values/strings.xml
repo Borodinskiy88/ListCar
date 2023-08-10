@@ -19,6 +19,11 @@
     <string name="show_brand">Show all cars of this brand</string>
     <string name="show_model">Show all cars of this model</string>
     <string name="sorted">Sorted</string>
-
+    <string name="show_increase">Show all cars in ascending order of price</string>
+    <string name="show_decrease">Show all cars in descending order of price</string>
+    <string name="logo">Logo</string>
+    <string name="list_car">List car</string>
+    <string name="create_update">Create or Update car</string>
+    <string name="filter">Filter</string>
 
 </resources>

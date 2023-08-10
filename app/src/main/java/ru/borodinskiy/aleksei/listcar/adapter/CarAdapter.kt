@@ -17,7 +17,6 @@ interface OnInteractionListener {
     fun onDelete(car: Car)
     fun filterByBrand(car: Car)
     fun filterByModel(car: Car)
-    fun filterByPrice()
 }
 
 class CarAdapter(
@@ -74,13 +73,6 @@ class CarAdapter(
                     Snackbar.make(binding.root, R.string.show_model, Snackbar.LENGTH_SHORT).show()
                     onInteractionListener.filterByModel(car)
                 }
-
-                //TODO Оставить только в верхнем меню
-                price.setOnClickListener {
-                    Snackbar.make(binding.root, "My Message", Snackbar.LENGTH_SHORT).show()
-                    onInteractionListener.filterByPrice()
-                }
-
 
                 menu.setOnClickListener {
                     PopupMenu(it.context, it).apply {

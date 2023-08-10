@@ -12,10 +12,10 @@ import ru.borodinskiy.aleksei.listcar.entity.Car
 
 @Dao
 interface CarDao {
-    @Query("SELECT * FROM car_db ORDER BY id DESC")
+    @Query("SELECT * FROM car ORDER BY id DESC")
     fun getCars(): Flow<List<Car>>
 
-    @Query("SELECT * from car_db WHERE id = :id")
+    @Query("SELECT * from car WHERE id = :id")
     fun getCarById(id: Int): Flow<Car>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -32,17 +32,20 @@ interface CarDao {
 
     //Сортировка
 
-    @Query("SELECT * from car_db WHERE brand = :brand")
+    @Query("SELECT * from car WHERE brand = :brand")
     fun getCarByBrand(brand: String): Flow<List<Car>>
 
-    @Query("SELECT * from car_db WHERE model = :model")
+    @Query("SELECT * from car WHERE model = :model")
     fun getCarByModel(model: String): Flow<List<Car>>
 
-    @Query("SELECT * from car_db ORDER BY price DESC")
+    @Query("SELECT * from car ORDER BY price DESC")
     fun getCarByPriceDescending(): Flow<List<Car>>
 
-    @Query("SELECT * from car_db ORDER BY price ASC")
+    @Query("SELECT * from car ORDER BY price ASC")
     fun getCarByPriceAscending(): Flow<List<Car>>
+
+    @Query("SELECT * FROM car WHERE brand LIKE :searchQuery OR model LIKE :searchQuery")
+    fun searchDatabase(searchQuery: String): Flow<List<Car>>
 
 
 }

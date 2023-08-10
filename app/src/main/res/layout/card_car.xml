@@ -33,7 +33,8 @@
             android:layout_marginTop="@dimen/padding_start_8"
             android:src="@drawable/ic_bmw_48"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/logo" />
 
         <TextView
             android:id="@+id/brand"
@@ -41,7 +42,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_spacing_16"
             android:drawablePadding="@dimen/common_spacing_16"
-            android:text="BMW"
             android:textColor="?attr/colorPrimaryVariant"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -56,7 +56,6 @@
             android:id="@+id/model"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="BMW X5"
             android:textSize="16sp"
             android:drawablePadding="@dimen/common_spacing_16"
             android:textColor="?attr/colorPrimaryVariant"
@@ -71,7 +70,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_start_8"
-            android:text="1,6  - 102 л.с. – разгон 12,9 с"
             android:textSize="16sp"
             android:textColor="?attr/colorPrimaryVariant"
             app:layout_constraintStart_toStartOf="@id/logo"
@@ -82,7 +80,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="1900000"
             android:textSize="16sp"
             android:drawablePadding="8dp"
             app:drawableStartCompat="@drawable/ruble"

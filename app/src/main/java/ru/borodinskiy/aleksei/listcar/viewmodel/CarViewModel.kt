@@ -25,30 +25,15 @@ class CarViewModel @Inject constructor(
 
     private val edited = MutableLiveData(empty)
 
-//    private val _created = SingleLiveEvent<Unit>()
-//    private val created = MutableLiveData<Unit>
-//        get() = _created
-
-
-    //TODO
     val allCars: LiveData<List<Car>> = repository.allCars
 
-    //TODO конкретная машина в новом окне
     fun getCarById(id: Int): LiveData<Car> = repository.getCarById(id)
 
-    //TODO машины бренда в новом окне
     fun getCarByBrand(brand: String): LiveData<List<Car>> = repository.getCarByBrand(brand)
 
-    //Todo машины марки в новом окне
     fun getCarByModel(model: String): LiveData<List<Car>> = repository.getCarByModel(model)
 
-    //TODO по уменьшению цены
-    fun priceCarDecrease(): LiveData<List<Car>> = repository.priceCarDecrease()
-
     val priceCarDecrease: LiveData<List<Car>> = repository.priceCarDecrease()
-
-    //TODO по увеличению цены
-    fun priceCarIncrease(): LiveData<List<Car>> = repository.priceCarIncrease()
 
     val priceCarIncrease: LiveData<List<Car>> = repository.priceCarIncrease()
 
@@ -85,4 +70,8 @@ class CarViewModel @Inject constructor(
             brand = brand, model = model, specifications = specification, price = price.toInt()
         )
     }
+
+    fun searchDatabase(query: String): LiveData<List<Car>> =
+        repository.searchDatabase(query)
+
 }

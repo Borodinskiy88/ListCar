@@ -45,77 +45,50 @@ class FilterCarFragment : Fragment() {
 
         recyclerView.adapter = adapter
 
-        binding.topBar.isVisible = false
-        binding.searchLabel.isVisible = false
-        binding.menuSorted.isVisible = false
         binding.floatingActionButton.isVisible = false
-
-        //TODO
-//        binding.recyclerView.layoutParams.height = 2650
-
 
         val brand = arguments?.getString(BRAND)
         val model = arguments?.getString(MODEL)
-
-        //TODO
         val decrease = arguments?.getString(DECREASE)
         val increase = arguments?.getString(INCREASE)
 
-        if (brand != null) {
-            brand.let {
-                viewModel.getCarByBrand(it).observe(viewLifecycleOwner) { cars ->
+        when {
+            (brand != null) -> {
+                brand.let {
+                    viewModel.getCarByBrand(it).observe(viewLifecycleOwner) { cars ->
+                        cars.let {
+                            adapter.submitList(it)
+                        }
+                    }
+                }
+            }
+
+            (model != null) -> {
+                model.let {
+                    viewModel.getCarByModel(it).observe(viewLifecycleOwner) { cars ->
+                        cars.let {
+                            adapter.submitList(it)
+                        }
+                    }
+                }
+            }
+
+            (decrease != null) -> {
+                viewModel.priceCarDecrease.observe(this.viewLifecycleOwner) { cars ->
                     cars.let {
                         adapter.submitList(it)
                     }
                 }
             }
-        } else if (model != null) {
-            model.let {
-                viewModel.getCarByModel(it).observe(viewLifecycleOwner) { cars ->
+
+            (increase != null) -> {
+                viewModel.priceCarIncrease.observe(this.viewLifecycleOwner) { cars ->
                     cars.let {
                         adapter.submitList(it)
                     }
-                }
-            }
-        } else if (decrease != null) {
-            viewModel.priceCarDecrease.observe(this.viewLifecycleOwner) { cars ->
-                cars.let {
-                    adapter.submitList(it)
-                }
-            }
-        } else if (increase != null) {
-            viewModel.priceCarIncrease.observe(this.viewLifecycleOwner) { cars ->
-                cars.let {
-                    adapter.submitList(it)
                 }
             }
         }
-
-
-//        if (brand != null) {
-//            brand.let {
-//                viewModel.getCarByBrand(it).observe(viewLifecycleOwner) { cars ->
-//                    cars.let {
-//                        adapter.submitList(it)
-//                    }
-//                }
-//            }
-//        } else if (model != null) {
-//            model.let {
-//                viewModel.getCarByModel(it).observe(viewLifecycleOwner) { cars ->
-//                    cars.let {
-//                        adapter.submitList(it)
-//                    }
-//                }
-//            }
-//        } else {
-//            viewModel.priceCarDecrease.observe(this.viewLifecycleOwner) { cars ->
-//                cars.let {
-//                    adapter.submitList(it)
-//                }
-//            }
-//        }
-
         return binding.root
     }
 

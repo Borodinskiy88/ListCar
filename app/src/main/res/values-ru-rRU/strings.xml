@@ -17,4 +17,11 @@
     <string name="increase">По возрастанию ↑</string>
     <string name="show_brand">Показать все машины данной марки</string>
     <string name="show_model">Показать все машины данной модели</string>
+    <string name="sorted">Сортировка</string>
+    <string name="show_increase">Показать все машины в порядке возрастания цены</string>
+    <string name="show_decrease">Показать все машины в порядке убывания цены</string>
+    <string name="logo">Логотип</string>
+    <string name="list_car">Список машин</string>
+    <string name="create_update">Создайте или обновите</string>
+    <string name="filter">Фильтр</string>
 </resources>

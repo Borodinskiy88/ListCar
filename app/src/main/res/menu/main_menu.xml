@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_sorted_increase"
+        android:title="@string/sorted"
+        android:icon="@drawable/ic_sorted_inc_24"
+        android:iconTint="?attr/colorOnPrimary"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_sorted_decrease"
+        android:title="@string/sorted"
+        android:icon="@drawable/ic_sorted_dec_24"
+        android:iconTint="?attr/colorOnPrimary"
+        app:showAsAction="ifRoom" />
+
+</menu>

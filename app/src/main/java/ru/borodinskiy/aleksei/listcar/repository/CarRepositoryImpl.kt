@@ -26,6 +26,9 @@ class CarRepositoryImpl @Inject constructor(private val carDao: CarDao) : CarRep
     override fun priceCarIncrease(): LiveData<List<Car>> =
         carDao.getCarByPriceAscending().asLiveData()
 
+    override fun searchDatabase(searchQuery: String): LiveData<List<Car>> =
+        carDao.searchDatabase(searchQuery).asLiveData()
+
     override suspend fun update(car: Car) = carDao.update(car)
 
     override suspend fun insert(car: Car) = carDao.insert(car)

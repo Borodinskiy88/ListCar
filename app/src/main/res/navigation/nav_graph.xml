@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/carFragment"
         android:name="ru.borodinskiy.aleksei.listcar.ui.CarFragment"
-        android:label="CarFragment">
+        android:label="List Car">
         <action
             android:id="@+id/action_carFragment_to_newCarFragment"
             app:destination="@id/newCarFragment" />
@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/newCarFragment"
         android:name="ru.borodinskiy.aleksei.listcar.ui.NewCarFragment"
-        android:label="NewCarFragment">
+        android:label="Create or Update car">
         <action
             android:id="@+id/action_newCarFragment_to_carFragment"
             app:destination="@id/carFragment" />
@@ -26,7 +26,7 @@
     <fragment
         android:id="@+id/filterCarFragment"
         android:name="ru.borodinskiy.aleksei.listcar.ui.FilterCarFragment"
-        android:label="FilterCarFragment">
+        android:label="Filter">
         <action
             android:id="@+id/action_filterCarFragment_to_carFragment"
             app:destination="@id/carFragment" />
