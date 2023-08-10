@@ -18,6 +18,7 @@
     <string name="increase">Increase ↑</string>
     <string name="show_brand">Show all cars of this brand</string>
     <string name="show_model">Show all cars of this model</string>
+    <string name="sorted">Sorted</string>
 
 
 </resources>

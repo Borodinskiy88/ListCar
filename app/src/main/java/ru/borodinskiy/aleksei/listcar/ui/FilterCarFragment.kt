@@ -50,7 +50,8 @@ class FilterCarFragment : Fragment() {
         binding.menuSorted.isVisible = false
         binding.floatingActionButton.isVisible = false
 
-        binding.recyclerView.layoutParams.height = 2650
+        //TODO
+//        binding.recyclerView.layoutParams.height = 2650
 
 
         val brand = arguments?.getString(BRAND)
