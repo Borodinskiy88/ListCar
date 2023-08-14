@@ -56,11 +56,20 @@ class NewCarFragment : Fragment() {
                 ).show()
                 return@setOnClickListener
             }
+            val price = binding.priceText.text.toString()
+            if (price < 0.toString() || price > 2000000000.toString()) {
+                Snackbar.make(
+                    binding.root,
+                    R.string.enter_the_correct_price,
+                    Snackbar.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            }
             viewModel.changeCar(
                 binding.brandText.text.toString(),
                 binding.modelText.text.toString(),
                 binding.specificationsText.text.toString(),
-                binding.priceText.text.toString()
+                price
             )
             viewModel.save()
             AndroidUtils.hideKeyboard(requireView())

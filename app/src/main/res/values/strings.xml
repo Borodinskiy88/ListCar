@@ -25,5 +25,6 @@
     <string name="list_car">List car</string>
     <string name="create_update">Create or Update car</string>
     <string name="filter">Filter</string>
+    <string name="enter_the_correct_price">Please enter the correct price</string>
 
 </resources>

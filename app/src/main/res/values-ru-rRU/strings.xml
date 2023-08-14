@@ -24,4 +24,5 @@
     <string name="list_car">Список машин</string>
     <string name="create_update">Создайте или обновите</string>
     <string name="filter">Фильтр</string>
+    <string name="enter_the_correct_price">Пожалуйста, введите корректную сумму</string>
 </resources>
